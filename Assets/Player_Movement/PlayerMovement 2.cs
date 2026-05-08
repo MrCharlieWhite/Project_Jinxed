@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
     }
 }
