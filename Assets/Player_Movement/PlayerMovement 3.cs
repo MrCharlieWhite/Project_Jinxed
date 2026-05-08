@@ -49,6 +49,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawCube(groundCheckPosition.position, groundCheckSize);
+        Gizmos.DrawWireCube(groundCheckPosition.position, groundCheckSize);
     }
 }
