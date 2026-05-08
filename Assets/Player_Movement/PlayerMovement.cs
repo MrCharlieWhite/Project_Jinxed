@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-
+    // Movement
     public float moveSpeed = 5f;
-
     private float horizontalMovement;
+    
+    // Jumping
+    public float jumpPower = 10f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
