@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     
     // Jumping groundcheck
     public Transform groundCheckPosition;
-    public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
+    public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask groundLayer;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
