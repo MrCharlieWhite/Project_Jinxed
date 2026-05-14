@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public int maxJumps = 2;
     int jumpsRemaining;
     
+    // Gravity
+    public float baseGravity = 2;
+    public float maxFallSpeed = 18;
+    public float fallSpeedMultiplier = 2;
+    
     // Jumping groundcheck
     public Transform groundCheckPosition;
     public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
@@ -34,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
         rb.linearVelocity = newVelocity;
         GroundCheck();
+    }
+
+    private void Gravity()
+    {
+        
     }
 
     public void Move(InputAction.CallbackContext context)
