@@ -142,7 +142,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -214,12 +214,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 3689796179237659985}
   moveSpeed: 5
-  jumpPower: 10
+  jumpPower: 12
   groundCheckPosition: {fileID: 1950516446177870150}
   groundCheckSize: {x: 1, y: 0.05}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  trapLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &3361672940896787296
 MonoBehaviour:
   m_ObjectHideFlags: 0

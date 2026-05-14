@@ -10,7 +10,12 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75bf892a-1a70-4c9b-9ba6-b929506151ec" name="Changes" comment="" />
+    <list default="true" id="75bf892a-1a70-4c9b-9ba6-b929506151ec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tutorial_platformer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tutorial_platformer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Player_Movement/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player_Movement/InputSystem_Actions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/PlayerMovement.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,6 +73,7 @@
       <workItem from="1778238027527" duration="474000" />
       <workItem from="1778243367208" duration="3002000" />
       <workItem from="1778329371679" duration="972000" />
+      <workItem from="1778748902949" duration="614000" />
     </task>
     <servers />
   </component>

@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     
     // Jumping
     public float jumpPower = 10f;
+    public int maxJumps = 2;
+    int jumpsRemaining;
     
     // Jumping groundcheck
     public Transform groundCheckPosition;
