@@ -11,6 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75bf892a-1a70-4c9b-9ba6-b929506151ec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tutorial_platformer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tutorial_platformer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Frictionless_material.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Frictionless_material.physicsMaterial2D" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level_0.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/PlayerMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +74,8 @@
       <workItem from="1778243367208" duration="3002000" />
       <workItem from="1778329371679" duration="972000" />
       <workItem from="1778748902949" duration="772000" />
-      <workItem from="1778750371820" duration="674000" />
+      <workItem from="1778750371820" duration="999000" />
+      <workItem from="1778764864066" duration="2884000" />
     </task>
     <servers />
   </component>

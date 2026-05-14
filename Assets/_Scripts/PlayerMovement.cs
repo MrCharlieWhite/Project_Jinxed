@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
+    bool isFacingRight = true;
     // Movement
     public float moveSpeed = 5f;
     private float horizontalMovement;
@@ -26,6 +27,12 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask trapLayer;
     
+    // Jumping wallcheck
+    public Transform wallCheckPosition;
+    public Vector2 wallCheckSize = new Vector2(0.4f, 0.02f);
+    public LayerMask wallLayer;
+
+
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
         rb.linearVelocity = newVelocity;
         GroundCheck();
+
+        Flip();
     }
 
     private void Gravity()
@@ -101,11 +110,24 @@ public class PlayerMovement : MonoBehaviour
             jumpsRemaining = maxJumps;
         }
     }
+
+    private void Flip()
+    {
+        if (isFacingRight && horizontalMovement < 0 || !isFacingRight && horizontalMovement > 0)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 ls = transform.localScale;
+            ls.x *= -1f;
+            transform.localScale = ls;
+        }
+    }
     
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireCube(groundCheckPosition.position, groundCheckSize);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(wallCheckPosition.position, wallCheckSize);
     }
     
     // Checks collision with any object
