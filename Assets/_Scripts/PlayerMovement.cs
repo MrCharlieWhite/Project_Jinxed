@@ -43,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Gravity()
     {
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.gravityScale = baseGravity * fallSpeedMultiplier;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -maxFallSpeed));
+        }
         
     }
 
