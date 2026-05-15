@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform wallCheckPosition;
     public Vector2 wallCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask wallLayer;
+    
+    // Wall Movement
+    public float wallSlideSpeed = 2;
+    private bool isWallSliding;
 
 
     
@@ -46,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
         rb.linearVelocity = newVelocity;
         GroundCheck();
-
+        Gravity();
         Flip();
     }
 
@@ -57,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = baseGravity * fallSpeedMultiplier;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -maxFallSpeed));
         }
+        
+    }
+
+    private void ProcessWallSLide()
+    {
         
     }
 
