@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask groundLayer;
     public LayerMask trapLayer;
+    private bool isGrounded;
     
     // Jumping wallcheck
     public Transform wallCheckPosition;
@@ -35,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
     // Wall Movement
     public float wallSlideSpeed = 2;
     private bool isWallSliding;
+    
+    // Wall Jumping
+    private bool isWallJumping;
+    private float wallJumpDirection;
+    private float wallJumpTime = 0.5f;
+    private float wallJumpTimer;
+    public Vector2 wallJumpPower = new Vector2(5f, 10f);
 
 
     
@@ -47,11 +55,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 newVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
-        rb.linearVelocity = newVelocity;
+
         GroundCheck();
         Gravity();
         Flip();
+        ProcessWallSLide();
+        ProcessWallJump();
+        
+        if (!isWallJumping)
+        {
+            rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+            Flip();
+        }
     }
 
     private void Gravity()
@@ -64,11 +79,46 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    private void ProcessWallSLide()
+    private bool WallCheck()
     {
-        
+        return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer);
     }
 
+    private void ProcessWallSLide()
+    {
+        // if !Grounded & on a wall & Movement !0
+        if (!isGrounded && WallCheck() && horizontalMovement != 0)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void ProcessWallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpDirection = -transform.localScale.x;
+            wallJumpTimer = wallJumpTime;
+            
+            CancelInvoke(nameof(CancelWallJump));
+        }
+        else if (wallJumpTimer > 0f)
+        {
+            wallJumpTimer -= Time.deltaTime;
+        }
+    }
+
+    private void CancelWallJump()
+    {
+        isWallJumping = false;
+    }
+    
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
@@ -88,6 +138,24 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
                 jumpsRemaining--;
             }
+        }
+        // Wall Jump 
+        if (context.performed && wallJumpTimer > 0f)
+        {
+            isWallJumping = true;
+            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y); // Jump away from the wall
+            wallJumpTimer = 0;
+            
+            // Force Flip
+            if (transform.localScale.x != wallJumpDirection)
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 ls = transform.localScale;
+                ls.x *= -1f;
+                transform.localScale = ls;
+            }
+            
+            Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
         }
     }
     
@@ -114,9 +182,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundCheck()
     {
-        if (Physics2D.OverlapBox(groundCheckPosition.position, groundCheckSize, 0, groundLayer))
+        if (Physics2D.OverlapBox(groundCheckPosition.position, groundCheckSize, 0, groundLayer)) // Checks if box overlaps with ground
         {
             jumpsRemaining = maxJumps;
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
         }
     }
 

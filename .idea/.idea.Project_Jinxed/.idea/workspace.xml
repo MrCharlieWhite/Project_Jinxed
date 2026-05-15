@@ -22,6 +22,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7,
   &quot;fromUser&quot;: false
@@ -100,7 +103,7 @@
       <workItem from="1778347042008" duration="6425000" />
       <workItem from="1778849082593" duration="353000" />
       <workItem from="1778849681053" duration="91000" />
-      <workItem from="1778849793266" duration="284000" />
+      <workItem from="1778849793266" duration="3489000" />
     </task>
     <servers />
   </component>
