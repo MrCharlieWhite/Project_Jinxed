@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     public float moveSpeed = 5f;
     private float horizontalMovement;
+    private float verticalMovement;
     
     // Jumping
     public float jumpPower = 10f;
@@ -34,8 +35,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask wallLayer;
     
     // Wall Movement
-    public float wallSlideSpeed = 2;
-    private bool isWallSliding;
+    // public float wallSlideSpeed = 2;
+    // private bool isWallSliding;
+    private bool isWallClimbing;
+    public float wallClimbSpeed = 1f;
+    public float wallClimbEnergy = 3f;
     
     // Wall Jumping
     private bool isWallJumping;
@@ -59,8 +63,8 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         Gravity();
         Flip();
-        ProcessWallSLide();
-        ProcessWallJump();
+        // ProcessWallSLide();
+        // ProcessWallJump();
         
         if (!isWallJumping)
         {
@@ -83,45 +87,50 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer);
     }
-
-    private void ProcessWallSLide()
-    {
-        // if !Grounded & on a wall & Movement !0
-        if (!isGrounded && WallCheck() && horizontalMovement != 0)
-        {
-            isWallSliding = true;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
-        }
-        else
-        {
-            isWallSliding = false;
-        }
-    }
-
-    private void ProcessWallJump()
-    {
-        if (isWallSliding)
-        {
-            isWallJumping = false;
-            wallJumpDirection = -transform.localScale.x;
-            wallJumpTimer = wallJumpTime;
-            
-            CancelInvoke(nameof(CancelWallJump));
-        }
-        else if (wallJumpTimer > 0f)
-        {
-            wallJumpTimer -= Time.deltaTime;
-        }
-    }
-
-    private void CancelWallJump()
-    {
-        isWallJumping = false;
-    }
     
+    // private void ProcessWallSLide()
+    // {
+    //     if !Grounded & on a wall & Movement !0
+    //     if (!isGrounded && WallCheck() && horizontalMovement != 0)
+    //     {
+    //         isWallSliding = true;
+    //         rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
+    //     }
+    //     else
+    //     {
+    //         isWallSliding = false;
+    //     }
+    // }
+
+    // private void ProcessWallJump()
+    // {
+    //     if (isWallSliding)
+    //     {
+    //         isWallJumping = false;
+    //         wallJumpDirection = -transform.localScale.x;
+    //         wallJumpTimer = wallJumpTime;
+    //         
+    //         CancelInvoke(nameof(CancelWallJump));
+    //     }
+    //     else if (wallJumpTimer > 0f)
+    //     {
+    //         wallJumpTimer -= Time.deltaTime;
+    //     }
+    // }
+
+    // private void CancelWallJump()
+    // {
+    //     isWallJumping = false;
+    // }
+    //
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
+    }
+
+    public void WallMove(InputAction.CallbackContext context)
+    {
+        verticalMovement = context.ReadValue<Vector2>().y;
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -155,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = ls;
             }
             
-            Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
+            // Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
         }
     }
     
