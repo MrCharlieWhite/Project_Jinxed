@@ -35,19 +35,18 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask wallLayer;
     
     // Wall Movement
-    // public float wallSlideSpeed = 2;
-    // private bool isWallSliding;
-    private bool isWallClimbing;
+    public float wallSlideSpeed = 2;
+    [SerializeField] private bool isWallSliding;
+    [SerializeField] private bool isWallClimbing;
     public float wallClimbSpeed = 1f;
     public float wallClimbEnergy = 3f;
     
     // Wall Jumping
-    private bool isWallJumping;
-    private float wallJumpDirection;
-    private float wallJumpTime = 0.5f;
-    private float wallJumpTimer;
+    [SerializeField] private bool isWallJumping;
+    [SerializeField] private float wallJumpDirection;
+    [SerializeField] private float wallJumpTime = 0.5f;
+    [SerializeField] private float wallJumpTimer;
     public Vector2 wallJumpPower = new Vector2(5f, 10f);
-
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -63,8 +62,8 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         Gravity();
         Flip();
-        // ProcessWallSLide();
-        // ProcessWallJump();
+        ProcessWallSLide();
+        ProcessWallJump();
         
         if (!isWallJumping)
         {
@@ -88,41 +87,40 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapBox(wallCheckPosition.position, wallCheckSize, 0, wallLayer);
     }
     
-    // private void ProcessWallSLide()
-    // {
-    //     if !Grounded & on a wall & Movement !0
-    //     if (!isGrounded && WallCheck() && horizontalMovement != 0)
-    //     {
-    //         isWallSliding = true;
-    //         rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
-    //     }
-    //     else
-    //     {
-    //         isWallSliding = false;
-    //     }
-    // }
+    private void ProcessWallSLide()
+    {
+        if (!isGrounded && WallCheck() && horizontalMovement != 0)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
 
-    // private void ProcessWallJump()
-    // {
-    //     if (isWallSliding)
-    //     {
-    //         isWallJumping = false;
-    //         wallJumpDirection = -transform.localScale.x;
-    //         wallJumpTimer = wallJumpTime;
-    //         
-    //         CancelInvoke(nameof(CancelWallJump));
-    //     }
-    //     else if (wallJumpTimer > 0f)
-    //     {
-    //         wallJumpTimer -= Time.deltaTime;
-    //     }
-    // }
+    private void ProcessWallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpDirection = -transform.localScale.x;
+            wallJumpTimer = wallJumpTime;
+            
+            CancelInvoke(nameof(CancelWallJump));
+        }
+        else if (wallJumpTimer > 0f)
+        {
+            wallJumpTimer -= Time.deltaTime;
+        }
+    }
 
-    // private void CancelWallJump()
-    // {
-    //     isWallJumping = false;
-    // }
-    //
+    private void CancelWallJump()
+    {
+        isWallJumping = false;
+    }
+    
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
@@ -195,6 +193,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpsRemaining = maxJumps;
             isGrounded = true;
+            isWallJumping = false;
         }
         else
         {

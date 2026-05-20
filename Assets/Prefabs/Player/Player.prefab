@@ -66,6 +66,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1950516446177870150}
+  - {fileID: 6810921579375934980}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3890313159612436343
@@ -117,7 +118,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1829790738, guid: 132596068295d40f188c61f5489424e9, type: 3}
+  m_Sprite: {fileID: -2098098135, guid: 132596068295d40f188c61f5489424e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,7 +144,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1c08711fee1bb40cab9e02d7bd1a1896, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -215,6 +216,10 @@ MonoBehaviour:
   rb: {fileID: 3689796179237659985}
   moveSpeed: 5
   jumpPower: 12
+  maxJumps: 2
+  baseGravity: 2
+  maxFallSpeed: 18
+  fallSpeedMultiplier: 2
   groundCheckPosition: {fileID: 1950516446177870150}
   groundCheckSize: {x: 1, y: 0.05}
   groundLayer:
@@ -223,6 +228,21 @@ MonoBehaviour:
   trapLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckPosition: {fileID: 6810921579375934980}
+  wallCheckSize: {x: 0.1, y: 0.77}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  wallSlideSpeed: 2
+  isWallSliding: 0
+  isWallClimbing: 0
+  wallClimbSpeed: 1
+  wallClimbEnergy: 3
+  isWallJumping: 0
+  wallJumpDirection: 0
+  wallJumpTime: 0.5
+  wallJumpTimer: 0
+  wallJumpPower: {x: 5, y: 10}
 --- !u!114 &3361672940896787296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,3 +377,34 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &5641802777506809022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6810921579375934980}
+  m_Layer: 0
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6810921579375934980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5641802777506809022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.406, y: -0.151, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8414414615456366282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
