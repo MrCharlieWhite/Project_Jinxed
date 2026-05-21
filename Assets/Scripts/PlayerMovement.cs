@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMovement;
     private float verticalMovement;
     
+    // Animation
+    Animator anim;
     // Jumping
     public float jumpPower = 10f;
     public int maxJumps = 2;
@@ -53,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -64,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         Flip();
         ProcessWallSLide();
         ProcessWallJump();
+        
+
         
         if (!isWallJumping)
         {
@@ -124,6 +131,14 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
+        if (horizontalMovement > 0.1 || horizontalMovement < -0.1)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
     }
 
     public void WallMove(InputAction.CallbackContext context)
