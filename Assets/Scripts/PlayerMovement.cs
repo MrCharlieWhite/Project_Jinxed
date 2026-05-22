@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxFallSpeed = 18;
     public float fallSpeedMultiplier = 2;
     
-    // Jumping groundcheck
+    // Jumping Groundcheck
     public Transform groundCheckPosition;
     public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask groundLayer;
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         ProcessWallSLide();
         ProcessWallJump();
         PlayerDeathAnim();
-        DisableControls();
+
         
         if (!isWallJumping)
         {
@@ -243,21 +243,26 @@ public class PlayerMovement : MonoBehaviour
         if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Traps")))
         {
             isDead = true;
+
+            DisableControls();
+
             anim.SetTrigger("isDead");
+
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
+    
     }
 
     public void DisableControls()
     {
-        if (PlayerDeathAnim())
-        {
-            Destroy(playerInput);
-        }
+        playerInput.enabled = false;
+
+        horizontalMovement = 0;
+        verticalMovement = 0;
+
+        rb.linearVelocity = Vector2.zero;
     }
     
     private void OnDrawGizmosSelected()
