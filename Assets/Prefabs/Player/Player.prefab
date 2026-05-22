@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &520069097471368475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783024257489000976}
+  m_Layer: 0
+  m_Name: TrapCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1783024257489000976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520069097471368475}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.746, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8414414615456366282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3629575711299052689
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +77,7 @@ GameObject:
   - component: {fileID: 3738697092646295922}
   - component: {fileID: 3361672940896787296}
   - component: {fileID: 36007941677501454}
+  - component: {fileID: 8393340898538795130}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -68,6 +100,7 @@ Transform:
   m_Children:
   - {fileID: 1950516446177870150}
   - {fileID: 6810921579375934980}
+  - {fileID: 1783024257489000976}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3890313159612436343
@@ -222,7 +255,7 @@ MonoBehaviour:
   maxFallSpeed: 18
   fallSpeedMultiplier: 2
   groundCheckPosition: {fileID: 1950516446177870150}
-  groundCheckSize: {x: 1, y: 0.05}
+  groundCheckSize: {x: 0.58, y: 0.05}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -400,6 +433,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8393340898538795130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923079914380296027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc94dc6ab0a264a8e857a7968a2bc8be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  trapCheckPosition: {fileID: 1783024257489000976}
+  trapCheckSize: {x: 0.92, y: 0.05}
+  trapLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5641802777506809022
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 5641802777506809022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.446, y: -0.151, z: 0}
+  m_LocalPosition: {x: -0.446, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

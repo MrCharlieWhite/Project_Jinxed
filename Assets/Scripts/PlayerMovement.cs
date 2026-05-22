@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerInput playerInput;
     public Rigidbody2D rb;
     bool isFacingRight = true;
     // Movement
@@ -29,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheckPosition;
     public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask groundLayer;
-    public LayerMask trapLayer;
     private bool isGrounded;
     
     // Jumping wallcheck
@@ -50,14 +50,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpTime = 0.5f;
     [SerializeField] private float wallJumpTimer;
     public Vector2 wallJumpPower = new Vector2(5f, 10f);
+    
+    // Death Checks
+    public Transform trapCheckPosition;
+    public Vector2 trapCheckSize = new Vector2(0.4f, 0.02f);
+    public LayerMask trapLayer;
+    BoxCollider2D boxCollider;
+    bool isDead = false;
+
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        boxCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
+        playerInput = GetComponent<PlayerInput>();
+
     }
 
     // Update is called once per frame
@@ -69,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
         Flip();
         ProcessWallSLide();
         ProcessWallJump();
-        
-
+        PlayerDeathAnim();
+        DisableControls();
         
         if (!isWallJumping)
         {
@@ -180,7 +190,8 @@ public class PlayerMovement : MonoBehaviour
             // Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
         }
     }
-    
+
+
     // Load scenes from player movement, calls the load next scene from level manager. 
     // Checks if the gameObject trying to load the next scene is valid and isn't an artifact from the previous scene
     // A GameManager game object must exist inside the scene for this to work 
@@ -226,6 +237,28 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = ls;
         }
     }
+
+    public bool PlayerDeathAnim()
+    {
+        if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Traps")))
+        {
+            isDead = true;
+            anim.SetTrigger("isDead");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void DisableControls()
+    {
+        if (PlayerDeathAnim())
+        {
+            Destroy(playerInput);
+        }
+    }
     
     private void OnDrawGizmosSelected()
     {
@@ -233,6 +266,8 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireCube(groundCheckPosition.position, groundCheckSize);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(wallCheckPosition.position, wallCheckSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(trapCheckPosition.position, trapCheckSize);
     }
     
     // Checks collision with any object
