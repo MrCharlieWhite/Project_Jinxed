@@ -2,28 +2,43 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 1f;
-    Rigidbody2D myRigidBody;
-    void Start()
+    [SerializeField] private Rigidbody2D myRigidBody;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private int startDirection = -1;
+    private int currentDirection;
+    private float halfWidth;
+    private Vector2 movement;
+    private void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
+        halfWidth = spriteRenderer.bounds.extents.x;
+        currentDirection = startDirection;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        myRigidBody.linearVelocity = new Vector2(moveSpeed, 0f);
+        movement.x = moveSpeed * currentDirection;
+        movement.y = myRigidBody.linearVelocity.y;
+        myRigidBody.linearVelocity = movement;
+        SetDirection();
+    }
+
+    private void SetDirection()
+    {
+        if (Physics2D.Raycast(transform.position, Vector2.right, halfWidth + 0.1f, LayerMask.GetMask("Ground")) && myRigidBody.linearVelocity.x > 0)
+        {
+            currentDirection *= -1;
+        }
         
+        else if (Physics2D.Raycast(transform.position, Vector2.left, halfWidth + 0.1f, LayerMask.GetMask("Ground")) &&
+                 myRigidBody.linearVelocity.x < 0)
+        {
+            currentDirection *= -1;
+        }
+        
+        Debug.DrawRay(transform.position, Vector2.right * (halfWidth + 0.1f), Color.red);
+        Debug.DrawRay(transform.position, Vector2.left * (halfWidth + 0.1f), Color.red);
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        moveSpeed = -moveSpeed;
-        FlipEnemyFacing();
-    }
 
-    void FlipEnemyFacing()
-    {
-        transform.localScale = new Vector2(-(Mathf.Sign(myRigidBody.linearVelocity.x)), 1f);
-    }
 }
