@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         ProcessWallSLide();
         ProcessWallJump();
         PlayerDeathAnim();
+        OnPlayerDeath();
 
         
         if (!isWallJumping)
@@ -246,6 +247,8 @@ public class PlayerMovement : MonoBehaviour
             DisableControls();
 
             anim.SetTrigger("isDead");
+            
+            rb.bodyType = RigidbodyType2D.Static;
 
             return true;
         }
@@ -308,4 +311,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }*/
+
+    void OnPlayerDeath()
+    {
+        if (isDead)
+        {
+            Invoke("GoToDeathScreen", 5f);
+        }
+
+    }
+    
+    public void GoToDeathScreen()
+    {
+        SceneManager.LoadScene(2);
+    }
 }
