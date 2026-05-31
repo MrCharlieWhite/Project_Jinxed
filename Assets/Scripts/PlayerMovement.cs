@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     public PlayerInput playerInput;
     public Rigidbody2D rb;
+    public Animator animator;
     bool isFacingRight = true;
     // Movement
     public float moveSpeed = 5f;
@@ -66,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -80,13 +82,16 @@ public class PlayerMovement : MonoBehaviour
         ProcessWallJump();
         PlayerDeathAnim();
         OnPlayerDeath();
-
+        
         
         if (!isWallJumping)
         {
             rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
             Flip();
         }
+        
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
+        
     }
 
     private void Gravity()
@@ -164,11 +169,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpsRemaining--;
+                animator.SetTrigger("isJumping");
             }
             else if (context.canceled)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
                 jumpsRemaining--;
+                animator.SetTrigger("isJumping");
+
             }
         }
         // Wall Jump 
