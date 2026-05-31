@@ -239,13 +239,26 @@ public class PlayerMovement : MonoBehaviour
 
     public bool PlayerDeathAnim()
     {
-        if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Traps")))
+        if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Traps" )) )
         {
             isDead = true;
 
             DisableControls();
 
             anim.SetTrigger("isDead");
+
+            return true;
+        }
+        
+        else if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isDead = true;
+
+            DisableControls();
+
+            anim.SetTrigger("isDead");
+
+            rb.bodyType = RigidbodyType2D.Static;
 
             return true;
         }

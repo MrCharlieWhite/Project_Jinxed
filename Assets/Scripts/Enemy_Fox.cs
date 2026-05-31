@@ -28,12 +28,14 @@ public class EnemyMovement : MonoBehaviour
         if (Physics2D.Raycast(transform.position, Vector2.right, halfWidth + 0.1f, LayerMask.GetMask("Ground")) && myRigidBody.linearVelocity.x > 0)
         {
             currentDirection *= -1;
+            spriteRenderer.flipX = false;
         }
         
         else if (Physics2D.Raycast(transform.position, Vector2.left, halfWidth + 0.1f, LayerMask.GetMask("Ground")) &&
                  myRigidBody.linearVelocity.x < 0)
         {
             currentDirection *= -1;
+            spriteRenderer.flipX = true;
         }
         
         Debug.DrawRay(transform.position, Vector2.right * (halfWidth + 0.1f), Color.red);
