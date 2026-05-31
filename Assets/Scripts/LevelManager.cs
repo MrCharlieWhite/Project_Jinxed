@@ -35,4 +35,14 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(levelIndex);
         _currentLevel = levelIndex;
     }
+
+    public void LoadFirstLevel()
+    {
+        LoadScene(1);
+    }
+
+    public void LoadMainMenu()
+    {
+        LoadScene(0);
+    }
 }

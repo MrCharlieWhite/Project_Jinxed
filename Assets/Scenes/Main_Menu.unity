@@ -576,6 +576,7 @@ GameObject:
   - component: {fileID: 977102240}
   - component: {fileID: 977102243}
   - component: {fileID: 977102244}
+  - component: {fileID: 977102245}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -713,6 +714,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b5508f36cb44ced80fc60a4bcb2311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &977102245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977102239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba71870299c3056448609a7da1244f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  _currentLevel: 0
 --- !u!1 &1175789756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,9 +1509,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 977102244}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 977102245}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
