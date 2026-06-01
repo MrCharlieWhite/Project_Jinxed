@@ -47,5 +47,11 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    
+    public void PlayMenuMusic()
+    {
+        if (_currentLevel == 0)
+        {
+            
+        }
+    }
 }
