@@ -67,4 +67,12 @@ public class LevelManager : MonoBehaviour
             LoadNextScene();
         }
     }
+
+
+
+    void Update()
+    {
+        LoadWhenLevelOver();
+    }
+    
 }
