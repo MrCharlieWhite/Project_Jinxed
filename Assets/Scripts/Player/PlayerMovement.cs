@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
     public int maxJumps = 2;
     int jumpsRemaining;
     private bool isOnGround = true;
+    float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+    private float jumpBuffer = 0.2f;
+    private float jumpBufferCounter = 0.2f;
     
     [Header("Gravity")]
     public float baseGravity = 2;
@@ -86,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CalculateCoyoteAndJumpBufferTime();
         GroundCheck();
         Gravity();
         Flip();
@@ -104,7 +108,8 @@ public class PlayerMovement : MonoBehaviour
         }
         
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
-        
+
+
     }
 
     private void Gravity()
@@ -176,7 +181,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (jumpsRemaining > 0)
+
+        if (coyoteTimeCounter > 0  && jumpsRemaining > 0)
         { 
             if (context.performed)
             {
@@ -184,14 +190,17 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpsRemaining--;
                 animator.SetTrigger("isJumping");
+                coyoteTimeCounter = 1f;
             }
             else if (context.canceled)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
                 jumpsRemaining--;
                 animator.SetTrigger("isJumping");
+                
 
             }
+
         }
         // Wall Jump 
         if (context.performed && wallJumpTimer > 0f)
@@ -212,6 +221,27 @@ public class PlayerMovement : MonoBehaviour
             // Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
         }
     }
+
+    private void CalculateCoyoteAndJumpBufferTime()
+    {
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else if (!isGrounded && jumpsRemaining > 0)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+    }
+
+
+
+
 
 
     // Load scenes from player movement, calls the load next scene from level manager. 
