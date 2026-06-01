@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,14 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Audio Manager")]
     AudioManager_Levels audioManager;
+    
+    [Header("Dash")]
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashCooldown = 1f;
+    [SerializeField] TrailRenderer trail;
     
     [Header("Components")]
     public PlayerInput playerInput;
@@ -111,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+
+
 
     private void Gravity()
     {
