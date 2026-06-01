@@ -4,56 +4,63 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Audio Manager")]
+    AudioManager_Levels audioManager;
     
+    [Header("Components")]
     public PlayerInput playerInput;
     public Rigidbody2D rb;
     public Animator animator;
     bool isFacingRight = true;
-    // Movement
+    
+    [Header("Movement")]
     public float moveSpeed = 5f;
     private float horizontalMovement;
     private float verticalMovement;
     
-    // Animation
+    [Header("Animation")]
     Animator anim;
-    // Jumping
+    
+    [Header("Jumping")]
     public float jumpPower = 10f;
     public int maxJumps = 2;
     int jumpsRemaining;
     private bool isOnGround = true;
     
-    // Gravity
+    [Header("Gravity")]
     public float baseGravity = 2;
     public float maxFallSpeed = 18;
     public float fallSpeedMultiplier = 2;
     
-    // Jumping Groundcheck
+    [Header("Jump GroundCheck")]
     public Transform groundCheckPosition;
     public Vector2 groundCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask groundLayer;
     private bool isGrounded;
     
-    // Jumping wallcheck
+    [Header("Jump Wallcheck")]
     public Transform wallCheckPosition;
     public Vector2 wallCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask wallLayer;
     
-    // Wall Movement
+    [Header("Wall Movement")]
     public float wallSlideSpeed = 2;
     [SerializeField] private bool isWallSliding;
     [SerializeField] private bool isWallClimbing;
 
     
-    // Wall Jumping
+    [Header("Wall Jumping")]
     [SerializeField] private bool isWallJumping;
     [SerializeField] private float wallJumpDirection;
     [SerializeField] private float wallJumpTime = 0.5f;
     [SerializeField] private float wallJumpTimer;
     public Vector2 wallJumpPower = new Vector2(5f, 10f);
     
-    // Death Checks
+    [Header("Death Checks")]
     public Transform trapCheckPosition;
     public Vector2 trapCheckSize = new Vector2(0.4f, 0.02f);
     public LayerMask trapLayer;
@@ -61,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
     bool isDead = false;
 
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager_Levels>();
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -169,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
         { 
             if (context.performed)
             {
+                audioManager.PlaySFX(audioManager.jump);
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpsRemaining--;
                 animator.SetTrigger("isJumping");
@@ -268,6 +280,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Traps" )) )
         {
+            audioManager.PlaySFX(audioManager.death);
+            
             isDead = true;
 
             DisableControls();
@@ -281,6 +295,8 @@ public class PlayerMovement : MonoBehaviour
         
         else if (!isDead && boxCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
         {
+            audioManager.PlaySFX(audioManager.death);
+            
             isDead = true;
 
             DisableControls();
@@ -349,6 +365,6 @@ public class PlayerMovement : MonoBehaviour
     
     public void GoToDeathScreen()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(4);
     }
 }

@@ -6,11 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    BoxCollider2D levelFinish;
+
+    
     public int _currentLevel = 0;
     private int _lastLoadFrame = int.MinValue;
 
     private bool LoadedRecently => Time.frameCount <= _lastLoadFrame + 1;
-    
+
+
+    public void Start()
+    {
+        levelFinish = GetComponent<BoxCollider2D>();
+
+    }
 
     public void LoadNextScene()
     {
@@ -46,12 +55,16 @@ public class LevelManager : MonoBehaviour
         LoadScene(0);
     }
 
-
-    public void PlayMenuMusic()
+    void LoadDeathScene()
     {
-        if (_currentLevel == 0)
+        LoadScene(4);
+    }
+
+    void LoadWhenLevelOver()
+    {
+        if (levelFinish.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            
+            LoadNextScene();
         }
     }
 }

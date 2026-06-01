@@ -2,15 +2,39 @@ using UnityEngine;
 
 public class AudioManager_Levels : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+ 
+    [Header("----------Audio Source----------")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource SFXSource;
+
+    [Header("----------Audio Clip----------")]
+    public AudioClip levelMusic;
+    
+    public AudioClip jump;
+    public AudioClip death;
+    public AudioClip teleport;
+    public AudioClip fireball;
+
+    public void Start()
     {
-        
+        musicSource.clip = levelMusic;
+        musicSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySFX(AudioClip clip)
     {
-        
+        SFXSource.PlayOneShot(clip);
     }
+    
+    public void PlayJump()
+    {
+        SFXSource.PlayOneShot(jump);
+    }
+    
+    public void PlayDeath()
+    {
+        SFXSource.PlayOneShot(death);
+    }
+    
+
 }
