@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpPower = 10f;
     public int maxJumps = 2;
     int jumpsRemaining;
+    private bool isOnGround = true;
     
     // Gravity
     public float baseGravity = 2;
@@ -82,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         ProcessWallJump();
         PlayerDeathAnim();
         OnPlayerDeath();
+        IsOnGround();
         
         
         if (!isWallJumping)
@@ -228,12 +230,28 @@ public class PlayerMovement : MonoBehaviour
             jumpsRemaining = maxJumps;
             isGrounded = true;
             isWallJumping = false;
+            anim.SetBool("isOnGround", true);
         }
         else
         {
             isGrounded = false;
+            anim.SetBool("isOnGround", false);
         }
     }
+
+    private void IsOnGround()
+    {
+        if (isGrounded)
+        {
+            isOnGround = true;
+        }
+        else
+        {
+            isOnGround = false;
+        }
+    }
+    
+    
 
     private void Flip()
     {
