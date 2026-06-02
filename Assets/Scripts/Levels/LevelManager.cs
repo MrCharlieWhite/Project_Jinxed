@@ -7,11 +7,10 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     BoxCollider2D levelFinish;
-
     
-    public int _currentLevel = 0;
+    public int _currentLevel;
     private int _lastLoadFrame = int.MinValue;
-
+    
     private bool LoadedRecently => Time.frameCount <= _lastLoadFrame + 1;
 
 
@@ -23,7 +22,9 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        LoadScene(_currentLevel + 1);
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        LoadScene(currentLevel + 1);
+        currentLevel = currentLevel + 1;
     }
 
     public void LoadPreviousScene()
@@ -54,11 +55,7 @@ public class LevelManager : MonoBehaviour
     {
         LoadScene(0);
     }
-
-    void LoadDeathScene()
-    {
-        LoadScene(4);
-    }
+    
 
     void LoadWhenLevelOver()
     {

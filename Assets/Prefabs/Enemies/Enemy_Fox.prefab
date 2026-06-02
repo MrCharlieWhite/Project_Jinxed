@@ -126,13 +126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4695023250937971183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7610aab6151f44040a7eb2eb63966fcd, type: 3}
+  m_Script: {fileID: 11500000, guid: ae1b41455361744b98e2f5b5b9746be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   myRigidBody: {fileID: 1645352982025662875}
   spriteRenderer: {fileID: 7151767682435813294}
   moveSpeed: 3
-  startDirection: 1
+  startDirection: -1
 --- !u!50 &1645352982025662875
 Rigidbody2D:
   serializedVersion: 5

@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Level_3.unity
     guid: 1fd3887abae49492693a1bf4f8c26a2c
   - enabled: 1
-    path: Assets/Scenes/GameEnd.unity
-    guid: 4d751a14b32d14083a06d8f6f09890b2
-  - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: 66087de9a9e6b4400b5222202992b640
+  - enabled: 1
+    path: Assets/Scenes/GameEnd.unity
+    guid: 4d751a14b32d14083a06d8f6f09890b2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
